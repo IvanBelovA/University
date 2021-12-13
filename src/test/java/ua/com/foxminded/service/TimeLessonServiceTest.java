@@ -52,7 +52,7 @@ class TimeLessonServiceTest {
 
         //when
         when(timeLessonDao.findById(id)).thenReturn(expected);
-        TimeLesson actual = timeLessonDao.findById(id);
+        TimeLesson actual = timeLessonService.findById(id);
 
         //then
         assertEquals(expected, actual);

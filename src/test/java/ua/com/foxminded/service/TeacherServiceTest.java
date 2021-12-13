@@ -49,7 +49,7 @@ class TeacherServiceTest {
 
         //when
         when(teachertDao.findById(id)).thenReturn(expected);
-        Teacher actual = teachertDao.findById(id);
+        Teacher actual = teacherService.findById(id);
 
         //then
         assertEquals(expected, actual);

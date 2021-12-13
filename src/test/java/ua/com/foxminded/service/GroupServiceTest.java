@@ -47,7 +47,7 @@ public class GroupServiceTest {
 
         //when
         when(groupDao.findById(id)).thenReturn(expected);
-        Group actual = groupDao.findById(id);
+        Group actual = groupService.findById(id);
 
         //then
         assertEquals(expected, actual);

@@ -48,7 +48,7 @@ class CourseServiceTest {
 
         //when
         when(courseDao.findById(id)).thenReturn(expected);
-        Course actual = courseDao.findById(id);
+        Course actual = courseService.findById(id);
 
         //then
         assertEquals(expected, actual);

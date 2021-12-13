@@ -48,7 +48,7 @@ class ClassRoomServiceTest {
 
         //when
         when(classRoomDao.findById(id)).thenReturn(expected);
-        ClassRoom actual = classRoomDao.findById(id);
+        ClassRoom actual = classRoomService.findById(id);
 
         //then
         assertEquals(expected, actual);
