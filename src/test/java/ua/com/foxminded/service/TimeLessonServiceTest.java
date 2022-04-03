@@ -9,24 +9,25 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ua.com.foxminded.university.dao.TimeLessonDao;
 import ua.com.foxminded.university.model.TimeLesson;
-import ua.com.foxminded.university.service.TimeLessonServiceImpl;
+import ua.com.foxminded.university.service.impl.TimeLessonServiceImpl;
 
+@ExtendWith(SpringExtension.class)
 class TimeLessonServiceTest {
 
-    private TimeLessonServiceImpl timeLessonService;
+    @Mock
     private TimeLessonDao timeLessonDao;
 
-    @BeforeEach
-    void setUp() {
-        timeLessonDao = Mockito.mock(TimeLessonDao.class);
-        timeLessonService = new TimeLessonServiceImpl(timeLessonDao);
-    }
+    @InjectMocks
+    private TimeLessonServiceImpl timeLessonService;
 
     @Test
     void givenReturnListWithAllTimeLessonWhenCallHim() {

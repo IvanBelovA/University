@@ -8,24 +8,25 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ua.com.foxminded.university.dao.GroupDao;
 import ua.com.foxminded.university.model.Group;
-import ua.com.foxminded.university.service.GroupServiceImpl;
+import ua.com.foxminded.university.service.impl.GroupServiceImpl;
 
+@ExtendWith(SpringExtension.class)
 public class GroupServiceTest {
 
-    private GroupServiceImpl groupService;
+    @Mock
     private GroupDao groupDao;
 
-    @BeforeEach
-    void setUp() {
-        groupDao = Mockito.mock(GroupDao.class);
-        groupService = new GroupServiceImpl(groupDao);
-    }
+    @InjectMocks
+    private GroupServiceImpl groupService;
 
     @Test
     void givenReturnListWithGroupsWhenCallHim() {

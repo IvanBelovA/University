@@ -3,12 +3,14 @@ package ua.com.foxminded.university.dao.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import ua.com.foxminded.university.dao.SheduleDao;
 import ua.com.foxminded.university.dto.SheduleDto;
+import ua.com.foxminded.university.exception.DaoException;
 
 @Repository
 public class SheduleDaoImpl implements SheduleDao{
@@ -37,9 +39,13 @@ public class SheduleDaoImpl implements SheduleDao{
     }
 
     public void add(SheduleDto sheduleDto) {
-        jdbcTemplate.update(ADDITION,
-                sheduleDto.getLessonId(), sheduleDto.getGroupId(), sheduleDto.getCourseId(),
-                sheduleDto.getTeacherId(), sheduleDto.getClassroomId());
+        try {
+            jdbcTemplate.update(ADDITION, sheduleDto.getLessonId(), sheduleDto.getGroupId(), sheduleDto.getCourseId(),
+                    sheduleDto.getTeacherId(), sheduleDto.getClassroomId());
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Invalid input data");
+        }
+
     }
 
     public void delete(SheduleDto sheduleDto) {

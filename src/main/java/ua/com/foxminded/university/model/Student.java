@@ -13,13 +13,12 @@ public class Student {
     private Group group;
     private List<Course> courses;
 
+    public Student() {}
+    
     public Student(String name, String lastName) {
         this.firstName = name;
         this.lastName = lastName;
     }
-
-    
-    public Student() {}
 
     public Student(int id, String firstName, String lastName) {
         this.id = id;

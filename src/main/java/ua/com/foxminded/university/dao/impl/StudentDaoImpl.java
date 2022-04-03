@@ -2,18 +2,26 @@ package ua.com.foxminded.university.dao.impl;
 
 import java.util.List;
 
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import lombok.extern.slf4j.Slf4j;
 import ua.com.foxminded.university.dao.StudentDao;
 import ua.com.foxminded.university.dao.mapper.StudentsResultExtractor;
+import ua.com.foxminded.university.exception.DaoException;
 import ua.com.foxminded.university.model.Student;
 
+//@Slf4j
 @Repository
 public class StudentDaoImpl implements StudentDao{
 
+//    private static final Logger log = LoggerFactory.getLogger(StudentDaoImpl.class);
+    
     private static final String ALL = "SELECT * FROM students";
     private static final String BY_ID = "SELECT * FROM students WHERE id = ?";
     private static final String ADDITION = "INSERT INTO students(first_name, last_name) VALUES(?, ?)";
@@ -37,6 +45,7 @@ public class StudentDaoImpl implements StudentDao{
     }
 
     public List<Student> findAll() {
+//        log.debug("Find all students");
         return jdbcTemplate.query(ALL, new BeanPropertyRowMapper<> (Student.class));
     }
 
@@ -55,7 +64,11 @@ public class StudentDaoImpl implements StudentDao{
     }
 
     public void assignFromCourse(int studentId, int courseId) {
-        jdbcTemplate.update(ASSIGN_COURSE, studentId, courseId);
+        try {
+            jdbcTemplate.update(ASSIGN_COURSE, studentId, courseId);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("No course or student exists");
+        }
     }
 
     public void deleteFromCourse(int studentId, int courseId) {
@@ -64,7 +77,11 @@ public class StudentDaoImpl implements StudentDao{
     }
 
     public void addFromGroup(int studentId, int groupId) {
-        jdbcTemplate.update(ADD_GROUP, groupId, studentId);
+        try {
+            jdbcTemplate.update(ADD_GROUP, groupId, studentId);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("No group exists");
+        }
     }
 
     public void deleteFromGroup(int studentId) {

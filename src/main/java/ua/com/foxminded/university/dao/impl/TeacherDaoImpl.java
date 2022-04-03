@@ -3,12 +3,14 @@ package ua.com.foxminded.university.dao.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import ua.com.foxminded.university.dao.TeacherDao;
 import ua.com.foxminded.university.dao.mapper.TeacherResultExtractor;
+import ua.com.foxminded.university.exception.DaoException;
 import ua.com.foxminded.university.model.Teacher;
 
 @Repository
@@ -51,7 +53,11 @@ public class TeacherDaoImpl implements TeacherDao{
     }
 
     public void addFromCourse(int idTeacher, int idCourse) {
-        jdbcTemplate.update(ADD_COURSE, idTeacher, idCourse);
+        try {
+            jdbcTemplate.update(ADD_COURSE, idTeacher, idCourse);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("No teacher or course exists");
+        }
     }
 
     public void deleteFromCourse(int idTeacher, int idCourse) {

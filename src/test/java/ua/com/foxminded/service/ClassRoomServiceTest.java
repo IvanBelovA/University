@@ -8,24 +8,25 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ua.com.foxminded.university.dao.ClassRoomDao;
 import ua.com.foxminded.university.model.ClassRoom;
-import ua.com.foxminded.university.service.ClassRoomServiceImpl;
+import ua.com.foxminded.university.service.impl.ClassRoomServiceImpl;
 
+@ExtendWith(SpringExtension.class)
 class ClassRoomServiceTest {
 
-    private ClassRoomServiceImpl classRoomService;
+    @Mock
     private ClassRoomDao classRoomDao;
 
-    @BeforeEach
-    void setUp() {
-        classRoomDao = Mockito.mock(ClassRoomDao.class);
-        classRoomService = new ClassRoomServiceImpl(classRoomDao);
-    }
+    @InjectMocks
+    private ClassRoomServiceImpl classRoomService;
 
     @Test
     void givenReturnListWithClassRoomWhenCallHim() {

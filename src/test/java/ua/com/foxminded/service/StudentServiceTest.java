@@ -8,24 +8,25 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ua.com.foxminded.university.dao.StudentDao;
 import ua.com.foxminded.university.model.Student;
-import ua.com.foxminded.university.service.StudentServiceImpl;
+import ua.com.foxminded.university.service.impl.StudentServiceImpl;
 
+@ExtendWith(SpringExtension.class)
 class StudentServiceTest {
 
-    private StudentServiceImpl studentService;
+    @Mock
     private StudentDao studentDao;
 
-    @BeforeEach
-    void setUp() {
-        studentDao = Mockito.mock(StudentDao.class);
-        studentService = new StudentServiceImpl(studentDao);
-    }
+    @InjectMocks
+    private StudentServiceImpl studentService;
 
     @Test
     void givenReturnListWithStudentsWhenCallHim() {

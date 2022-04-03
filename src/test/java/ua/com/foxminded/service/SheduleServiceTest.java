@@ -27,7 +27,7 @@ import ua.com.foxminded.university.model.Lesson;
 import ua.com.foxminded.university.model.Shedule;
 import ua.com.foxminded.university.model.Student;
 import ua.com.foxminded.university.model.Teacher;
-import ua.com.foxminded.university.service.SheduleServiceImpl;
+import ua.com.foxminded.university.service.impl.SheduleServiceImpl;
 
 class SheduleServiceTest {
 
